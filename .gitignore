@@ -1,0 +1,3 @@
+.direnv
+**/*.uf2
+qmk_firmware
