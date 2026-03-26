@@ -15,6 +15,11 @@
 #define HSV_NUM_OFF 142, 104, 77
 #define HSV_NUM_ON 142, 191, 245
 
+
+#define HSV_LAYER_ICON 0, 0, 0
+#define HSV_LAYER_MOD 142, 191, 245
+#define HSV_LAYER_BLANK 0, 0, 0
+
 #define HSV_LAYER_0 0, 0, 160
 #define HSV_LAYER_3 0, 82, 255
 #define HSV_LAYER_1 23, 89, 255

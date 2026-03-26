@@ -23,13 +23,23 @@
 #include "graphics/numbers/9.qgf.h"
 #include "graphics/numbers/undef.qgf.h"
 
-static const char *caps =        "Caps";
-static const char *num =         "Num";
-static const char *scroll =      "Scroll";
+
+// OS icons
+#include "graphics/icons/tux.qgf.h"
+#include "graphics/icons/apple.qgf.h"
+
+static const char *layer_blank = "             ";
+static const char *layer_shift = "   shift   ";
+static const char *layer_nav   = "    nav    ";
+static const char *layer_num   = "    num    ";
+static const char *layer_sym   = "    sym    ";
+static const char *layer_media = "   media   ";
+static const char *layer_fn    = "     fn    ";
 
 static painter_font_handle_t Retron27;
 static painter_font_handle_t Retron27_underline;
 static painter_image_handle_t layer_number;
+static painter_image_handle_t layer_icon;
 
 static uint8_t lcd_surface_fb[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(135, 240, 16)];
 
@@ -179,7 +189,6 @@ void add_cell_cluster() {
 }
 
 void update_display(void) {
-    static bool first_run_led = false;
     static bool first_run_layer = false;
 
     if( first_run_layer == false) {
@@ -188,50 +197,46 @@ void update_display(void) {
         Retron27_underline = qp_load_font_mem(font_Retron2000_underline_27);
     }
 
-    if(last_led_usb_state.raw != host_keyboard_led_state().raw || first_run_led == false) {
-        led_t led_usb_state = host_keyboard_led_state();
-
-        led_usb_state.caps_lock   ? qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height * 3 - 15, Retron27_underline, caps,   HSV_CAPS_ON,   HSV_BLACK) : qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height * 3 - 15, Retron27, caps,   HSV_CAPS_OFF,   HSV_BLACK);
-        led_usb_state.num_lock    ? qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height * 2 - 10, Retron27_underline, num,    HSV_NUM_ON,    HSV_BLACK) : qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height * 2 - 10, Retron27, num,    HSV_NUM_OFF,    HSV_BLACK);
-        led_usb_state.scroll_lock ? qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 5,      Retron27_underline, scroll, HSV_SCROLL_ON, HSV_BLACK) : qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 5,      Retron27, scroll, HSV_SCROLL_OFF, HSV_BLACK);
-
-        last_led_usb_state = led_usb_state;
-        first_run_led = true;
-    }
 
     if(last_layer_state != layer_state || first_run_layer == false) {
+        // clear any previous temporary nav
+        qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 15, Retron27_underline, layer_blank, HSV_LAYER_MOD, HSV_BLACK);
+
         switch (get_highest_layer(layer_state|default_layer_state)) {
         case 0:
-            layer_number = qp_load_image_mem(gfx_0);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_0, HSV_BLACK);
+            layer_icon = qp_load_image_mem(gfx_tux);
+            qp_drawimage_recolor(lcd_surface, 0, 10, layer_icon, HSV_LAYER_ICON, HSV_BLACK);
             break;
         case 1:
-            layer_number = qp_load_image_mem(gfx_1);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_1, HSV_BLACK);
+            layer_icon = qp_load_image_mem(gfx_apple);
+            qp_drawimage_recolor(lcd_surface, 0, 10, layer_icon, HSV_LAYER_ICON, HSV_BLACK);
             break;
         case 2:
-            layer_number = qp_load_image_mem(gfx_2);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_2, HSV_BLACK);
+            qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 15, Retron27_underline, layer_shift, HSV_LAYER_MOD, HSV_BLACK);
             break;
         case 3:
-            layer_number = qp_load_image_mem(gfx_3);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_3, HSV_BLACK);
+            qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 15, Retron27_underline, layer_shift, HSV_LAYER_MOD, HSV_BLACK);
             break;
         case 4:
-            layer_number = qp_load_image_mem(gfx_4);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_4, HSV_BLACK);
+            qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 15, Retron27_underline, layer_nav, HSV_LAYER_MOD, HSV_BLACK);
             break;
         case 5:
-            layer_number = qp_load_image_mem(gfx_5);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_5, HSV_BLACK);
+            qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 15, Retron27_underline, layer_nav, HSV_LAYER_MOD, HSV_BLACK);
             break;
         case 6:
-            layer_number = qp_load_image_mem(gfx_6);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_6, HSV_BLACK);
+            qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 15, Retron27_underline, layer_num, HSV_LAYER_MOD, HSV_BLACK);
             break;
         case 7:
-            layer_number = qp_load_image_mem(gfx_7);
-            qp_drawimage_recolor(lcd_surface, 5, 5, layer_number, HSV_LAYER_7, HSV_BLACK);
+            qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 15, Retron27_underline, layer_sym, HSV_LAYER_MOD, HSV_BLACK);
+            break;
+        case 8:
+            qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 15, Retron27_underline, layer_sym, HSV_LAYER_MOD, HSV_BLACK);
+            break;
+        case 9:
+            qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 15, Retron27_underline, layer_fn, HSV_LAYER_MOD, HSV_BLACK);
+            break;
+        case 10:
+            qp_drawtext_recolor(lcd_surface, 5, LCD_HEIGHT - Retron27->line_height - 15, Retron27_underline, layer_media, HSV_LAYER_MOD, HSV_BLACK);
             break;
         default:
             layer_number = qp_load_image_mem(gfx_undef);

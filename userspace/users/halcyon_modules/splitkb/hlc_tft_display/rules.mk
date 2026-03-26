@@ -17,3 +17,7 @@ SRC += $(USER_PATH)/splitkb/hlc_tft_display/graphics/numbers/0.qgf.c \
 	   $(USER_PATH)/splitkb/hlc_tft_display/graphics/numbers/8.qgf.c \
 	   $(USER_PATH)/splitkb/hlc_tft_display/graphics/numbers/9.qgf.c \
 	   $(USER_PATH)/splitkb/hlc_tft_display/graphics/numbers/undef.qgf.c
+
+# System icons
+SRC += $(USER_PATH)/splitkb/hlc_tft_display/graphics/icons/apple.qgf.c \
+	   $(USER_PATH)/splitkb/hlc_tft_display/graphics/icons/tux.qgf.c
