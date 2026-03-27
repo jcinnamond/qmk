@@ -62,6 +62,29 @@ combo_t key_combos[] = {
     COMBO(combo_alt_ctl, OSM(MOD_LALT | MOD_LCTL)),
 };
 
+
+bool process_detected_host_os_kb(os_variant_t detected_os) {
+    if (!process_detected_host_os_user(detected_os)) {
+        return false;
+    }
+    switch (detected_os) {
+        case OS_MACOS:
+            layer_move(_MAC);
+            break;
+        case OS_LINUX:
+            layer_move(_BASE);
+            break;
+        case OS_IOS:
+            break;
+        case OS_WINDOWS:
+            break;
+        case OS_UNSURE:
+            break;
+    }
+
+    return true;
+}
+
 // clang-format on
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_5_hlc(

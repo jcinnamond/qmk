@@ -1,5 +1,6 @@
 RGB_MATRIX_ENABLE = yes
 COMBO_ENABLE = yes
 REPEAT_KEY_ENABLE=yes
+OS_DETECTION_ENABLE = yes
 
 USER_NAME := halcyon_modules
