@@ -85,7 +85,27 @@ bool process_detected_host_os_kb(os_variant_t detected_os) {
     return true;
 }
 
-// clang-format on
+enum custom_keycodes {
+    TM_CPY = SAFE_RANGE,
+    TM_CMD,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case TM_CPY:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTL("b") "[");
+        }
+        break;
+    case TM_CMD:
+        if (record->event.pressed) {
+            SEND_STRING(SS_LCTL("b") ":");
+        }
+        break;
+    }
+    return true;
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_5_hlc(
 // ╭────────┬────────┬────────┬────────┬────────┬────────╮                                      ╭────────┬────────┬────────┬────────┬────────┬────────╮
@@ -93,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├────────┼────────┼────────┼────────┼────────┼────────┤                                      ├────────┼────────┼────────┼────────┼────────┼────────┤
     LC_LB,   KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                           KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    CAG_RB,
 // ├────────┼────────┼────────┼────────┼────────┼────────┤────────┬────────╮  ╭────────┬────────┼────────┼────────┼────────┼────────┼────────┤────────┤
-    KC_LSFT, KC_LPRN, KC_X,    KC_C,    KC_D,    KC_V,    TMUX,    XXXXXXX,       XXXXXXX,    TMUX,    KC_K,    KC_H,    KC_COMMA, KC_DOT, KC_RPRN, XXXXXXX,
+    KC_LSFT, KC_LPRN, KC_X,    KC_C,    KC_D,    KC_V,    TMUX,    TM_CPY,     TM_CMD,  TMUX,    KC_K,    KC_H,    KC_COMMA, KC_DOT, KC_RPRN, XXXXXXX,
 // ╰────────┴────────┴────────┼────────┼────────┼────────┤────────┤────────┤  ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────╯
                                KC_RALT, MEDIA,   NAV_SP,  SYM_TAB, KC_ENT,     XXXXXXX, NUM_ENT, SFT_BSP, UG_NEXT, UG_TOGG,
 //                            ╰────────┴────────┴────────┴────────┴────────╯  ╰────────┴────────┴────────┴────────┴────────╯
@@ -107,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├────────┼────────┼────────┼────────┼────────┼────────┤                                      ├────────┼────────┼────────┼────────┼────────┼────────┤
     LG_LB,   KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                           KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    CAG_RB,
 // ├────────┼────────┼────────┼────────┼────────┼────────┤────────┬────────╮  ╭────────┬────────┼────────┼────────┼────────┼────────┼────────┤────────┤
-    LOCK,    KC_LPRN, KC_X,    KC_C,    KC_D,    KC_V,    C(KC_B), LOAD,       LOAD,    XXXXXXX, KC_K,    KC_H,    KC_COMMA, KC_DOT, KC_RPRN, XXXXXXX,
+    LOCK,    KC_LPRN, KC_X,    KC_C,    KC_D,    KC_V,    C(KC_B), TM_CPY,     TM_CMD,  TMUX,    KC_K,    KC_H,    KC_COMMA, KC_DOT, KC_RPRN, XXXXXXX,
 // ╰────────┴────────┴────────┼────────┼────────┼────────┤────────┤────────┤  ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────╯
                                XXXXXXX, MEDIA,   MNAV_SP, MSYM_TAB,KC_ENT,     XXXXXXX, NUM_ENT, MSFT_BSP,UG_NEXT, UG_TOGG,
 //                            ╰────────┴────────┴────────┴────────┴────────╯  ╰────────┴────────┴────────┴────────┴────────╯
