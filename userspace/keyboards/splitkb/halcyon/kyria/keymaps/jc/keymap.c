@@ -113,9 +113,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├────────┼────────┼────────┼────────┼────────┼────────┤                                      ├────────┼────────┼────────┼────────┼────────┼────────┤
     LC_LB,   KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                           KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    CAG_RB,
 // ├────────┼────────┼────────┼────────┼────────┼────────┤────────┬────────╮  ╭────────┬────────┼────────┼────────┼────────┼────────┼────────┤────────┤
-    KC_LSFT, KC_LPRN, KC_X,    KC_C,    KC_D,    KC_V,    TMUX,    TM_CPY,     TM_CMD,  TMUX,    KC_K,    KC_H,    KC_COMMA, KC_DOT, KC_RPRN, XXXXXXX,
+    KC_LSFT, KC_LPRN, KC_X,    KC_C,    KC_D,    KC_V,    TMUX,    TM_CPY,     TM_CMD,  TMUX,    KC_K,    KC_H,    KC_COMMA, KC_DOT, KC_RPRN, UG_NEXT,
 // ╰────────┴────────┴────────┼────────┼────────┼────────┤────────┤────────┤  ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────╯
-                               KC_RALT, MEDIA,   NAV_SP,  SYM_TAB, KC_ENT,     XXXXXXX, NUM_ENT, SFT_BSP, UG_NEXT, UG_TOGG,
+                               KC_RALT, MEDIA,   NAV_SP,  SYM_TAB, KC_ENT,     CW_TOGG, NUM_ENT, SFT_BSP, MO(_FUNCTION), UG_TOGG,
 //                            ╰────────┴────────┴────────┴────────┴────────╯  ╰────────┴────────┴────────┴────────┴────────╯
      KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO,                                                                KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
     ),
@@ -127,9 +127,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ├────────┼────────┼────────┼────────┼────────┼────────┤                                      ├────────┼────────┼────────┼────────┼────────┼────────┤
     LG_LB,   KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                                           KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    CAG_RB,
 // ├────────┼────────┼────────┼────────┼────────┼────────┤────────┬────────╮  ╭────────┬────────┼────────┼────────┼────────┼────────┼────────┤────────┤
-    LOCK,    KC_LPRN, KC_X,    KC_C,    KC_D,    KC_V,    C(KC_B), TM_CPY,     TM_CMD,  TMUX,    KC_K,    KC_H,    KC_COMMA, KC_DOT, KC_RPRN, XXXXXXX,
+    LOCK,    KC_LPRN, KC_X,    KC_C,    KC_D,    KC_V,    C(KC_B), TM_CPY,     TM_CMD,  TMUX,    KC_K,    KC_H,    KC_COMMA, KC_DOT, KC_RPRN, UG_NEXT,
 // ╰────────┴────────┴────────┼────────┼────────┼────────┤────────┤────────┤  ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────╯
-                               XXXXXXX, MEDIA,   MNAV_SP, MSYM_TAB,KC_ENT,     XXXXXXX, NUM_ENT, MSFT_BSP,UG_NEXT, UG_TOGG,
+                               KC_RALT, MEDIA,   MNAV_SP, MSYM_TAB,KC_ENT,     CW_TOGG, NUM_ENT, MSFT_BSP,MO(_FUNCTION), UG_TOGG,
 //                            ╰────────┴────────┴────────┴────────┴────────╯  ╰────────┴────────┴────────┴────────┴────────╯
      KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO,                                                                KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
     ),
